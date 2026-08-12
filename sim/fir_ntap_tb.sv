@@ -7,9 +7,7 @@ module fir_ntap_tb;
     logic sample_en;
     logic [WIDTH-1:0] x_i;
     logic [WIDTH-1:0] y_o;
-    
-    logic [WIDTH-1:0] sample [5] = '{100, 100, 100, 200, 100};
-    
+        
    fir_ntap #(
         .TAP(TAP),
         .WIDTH(WIDTH)
@@ -30,15 +28,14 @@ module fir_ntap_tb;
         arst_n <= 1'b1;
         
         sample_en <= 1'b1;
-//        foreach(sample[i]) begin
-//            @(posedge clk_i)
-//            x_i <= sample[i];
-//        end
-    
         repeat (5000) begin
             @(posedge clk_i);
             x_i <= $random;
         end
+        repeat (TAP) begin
+            @(posedge clk_i);
+        end
+        $finish;
     end
     
 endmodule
